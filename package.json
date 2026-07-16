@@ -1,0 +1,15 @@
+{
+  "name": "offer-trail",
+  "version": "1.0.0",
+  "description": "Notion-inspired placement workspace for students",
+  "main": "backend/src/server.js",
+  "scripts": {
+    "backend": "node --watch backend/src/server.js",
+    "frontend": "npm run dev --prefix frontend",
+    "ai": "cd fastapi_service && uvicorn main:app --port 8000 --reload",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\" \"npm run ai\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
