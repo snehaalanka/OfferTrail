@@ -4,7 +4,7 @@ const calculateAtsScore = async (resumeText) => {
   const DEFAULT_JD = "We are looking for a Software Engineer skilled in Data Structures, Algorithms, Object-Oriented Programming, Database Management Systems, Git, React, Node.js, SQL, and Docker.";
   
   try {
-    const fastapiUrl = process.env.FASTAPI_SERVICE_URL || 'http://127.0.0.1:8000';
+    const fastapiUrl = process.env.FASTAPI_URL || 'http://127.0.0.1:8000';
     const response = await fetch(`${fastapiUrl}/compare`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
