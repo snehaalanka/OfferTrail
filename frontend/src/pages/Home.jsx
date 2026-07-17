@@ -7,7 +7,11 @@ import { Trash2 } from 'lucide-react';
 import { api } from '../utils/api';
 import Loader from "../components/Loader";
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+let apiBaseStr = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+if (!apiBaseStr.endsWith('/api')) {
+  apiBaseStr = apiBaseStr.replace(/\/$/, '') + '/api';
+}
+const API_BASE = apiBaseStr;
 
 const DotTracker = ({ activeCount, companyId, onUpdateProgress }) => {
   const confirm = useConfirm();

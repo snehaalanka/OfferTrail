@@ -4,6 +4,11 @@ import { AlertCircle } from 'lucide-react';
 import { api } from '../utils/api';
 import Loader from "../components/Loader";
 
+let apiBaseStr = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+if (!apiBaseStr.endsWith('/api')) {
+  apiBaseStr = apiBaseStr.replace(/\/$/, '') + '/api';
+}
+const API_BASE = apiBaseStr;
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -34,14 +39,14 @@ const Login = () => {
       localStorage.removeItem('token');
       // Silently sign up or login the default user to obtain a valid database token signature
 
-      let response = await fetch('http://localhost:5000/api/auth/login', {
+      let response = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: defaultUser.email, password: defaultUser.password })
       });
 
       if (!response.ok) {
-        response = await fetch('http://localhost:5000/api/auth/register', {
+        response = await fetch(`${API_BASE}/auth/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(defaultUser)

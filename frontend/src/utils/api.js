@@ -1,4 +1,8 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+let apiBaseStr = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+if (!apiBaseStr.endsWith('/api')) {
+  apiBaseStr = apiBaseStr.replace(/\/$/, '') + '/api';
+}
+const API_BASE = apiBaseStr;
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');
@@ -158,7 +162,8 @@ export const api = {
     const formData = new FormData();
     formData.append('file', file);
     
-    const res = await fetch('http://localhost:8000/parse_pdf', {
+    const fastApiUrl = import.meta.env.VITE_FASTAPI_URL || 'http://localhost:8000';
+    const res = await fetch(`${fastApiUrl}/parse_pdf`, {
       method: 'POST',
       body: formData
     });
