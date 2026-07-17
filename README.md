@@ -1,19 +1,19 @@
 # 🚀 OfferTrail
 
-OfferTrail is an intelligent, AI-powered placement and job application workspace designed to help students and job seekers track their applications and tailor their resumes to specific job descriptions. 
+OfferTrail is a Notion-inspired, minimalist placement and job application workspace designed to bring order to the chaos of recruiting season. 
 
-By leveraging **Llama 3.3 via Groq**, OfferTrail analyzes Job Descriptions (JDs), extracts core requirements, and intelligently scores your uploaded resume, providing actionable feedback to help you land the interview.
+Built with a clean, distraction-free aesthetic, OfferTrail provides dedicated workspaces for every company you apply to—allowing you to track your progress, store tailored resumes, build study checklists, and log interview reflections all in one place. It also features a built-in AI assistant to optionally analyze job descriptions and score your resumes.
 
 ---
 
 ## ✨ Key Features
 
-- **📊 Application Tracking:** Track companies, roles, packages, deadlines, and application statuses (Wishlist, Applied, Prepping, Offered, Rejected) in a clean, Notion-style interface.
-- **🤖 AI Job Description Analysis:** Paste a JD and let the AI automatically extract the target skills, technologies, and core responsibilities.
-- **📄 Smart Resume Parsing:** Upload your tailored resume (PDF) directly into the workspace.
-- **🎯 AI Match Scoring:** The AI compares your parsed resume against the JD requirements and generates a real-time Match Score (0-100).
-- **💡 Actionable Insights:** Instantly see a list of missing skills and get 3 actionable suggestions to improve your resume before you apply.
-- **✅ Progress & Checklists:** Keep track of interview prep milestones, technical study checklists, and interview reflections directly inside each company's workspace.
+- **📓 Notion-Inspired Workspaces:** A beautifully minimalist, typography-driven interface designed for deep focus and organization.
+- **📊 Application Tracking:** Track companies, roles, packages, deadlines, and application statuses (Wishlist, Applied, Prepping, Offered, Rejected).
+- **✅ Progress & Checklists:** Build technical study checklists and track interview prep milestones directly inside each company's workspace.
+- **📝 Interview Reflections:** Log what went well, what you struggled with, and what to revise after every interview stage.
+- **📄 Document Management:** Upload and manage the specific, tailored resumes you submitted for each role.
+- **🤖 Smart AI Insights (Optional):** Use the built-in Llama 3.3 integration to optionally extract core requirements from a Job Description and compare it against your uploaded resume.
 
 ---
 
@@ -23,7 +23,7 @@ OfferTrail is built using a modern microservice architecture:
 
 ### Frontend (Client)
 * **Framework:** React + Vite
-* **Styling:** Tailwind CSS (Custom Dark Olive aesthetic)
+* **Styling:** Tailwind CSS (Custom Notion-style Dark Olive aesthetic)
 * **Routing:** React Router DOM
 * **State & Data Fetching:** React Query & Context API
 * **Deployment:** Vercel
