@@ -88,6 +88,9 @@ const CompanyWorkspace = () => {
   // 2.5 Define AI analysis mutation inside the component
   const analyzeMutation = useMutation({
     mutationFn: () => api.generateCompanyAnalysis(id),
+    onError: (err) => {
+      toast.error('AI Analysis failed: ' + err.message);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['company', id] });
       queryClient.invalidateQueries({ queryKey: ['companies'] });

@@ -234,67 +234,12 @@ export const generateCompanyAnalysis = async (req, res) => {
         };
       }
     } catch (apiError) {
-      console.warn('FastAPI service offline, running local fallback analysis:', apiError.message);
+      console.warn('FastAPI service offline or failed:', apiError.message);
     }
 
-    // Local JS parsing fallback if FastAPI is offline
+    // Fail hard if AI parsing did not succeed
     if (!analysisData) {
-      const SKILLS_DICT = [
-        "dsa", "data structures", "algorithms", "oop", "dbms", "operating systems",
-        "system design", "agile", "scrum", "unit testing", "jest", "ci/cd", "git",
-        "rest apis", "microservices", "load balancing", "caching", "object-oriented programming"
-      ];
-      const TECH_DICT = [
-        "react", "vue", "angular", "node.js", "node", "express", "django", "flask", "fastapi",
-        "spring boot", "java", "python", "javascript", "typescript", "c++", "golang", "rust",
-        "mongodb", "postgresql", "mysql", "redis", "dynamodb", "aws", "azure", "gcp",
-        "docker", "kubernetes", "jenkins", "terraform", "html", "css", "sql", "nosql", "linux"
-      ];
-
-      const parseKeywords = (text, dictionary) => {
-        const found = [];
-        const textLower = text.toLowerCase();
-        dictionary.forEach(word => {
-          const escapedWord = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-          const regex = new RegExp('\\b' + escapedWord + '\\b', 'i');
-          if (regex.test(textLower)) {
-            found.push(word.toUpperCase() === 'DSA' || word.toUpperCase() === 'OOP' || word.toUpperCase() === 'DBMS' || word.toUpperCase() === 'SQL' || word.toUpperCase() === 'AWS' ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1));
-          }
-        });
-        return [...new Set(found)];
-      };
-
-      const targetSkills = parseKeywords(jdText, SKILLS_DICT);
-      const targetTechs = parseKeywords(jdText, TECH_DICT);
-      const allRequirements = [...new Set([...targetSkills, ...targetTechs])];
-
-      const matched = [];
-      const missing = [];
-      const resumeLower = resumeText.toLowerCase();
-
-      allRequirements.forEach(req => {
-        const reqLower = req.toLowerCase();
-        if (resumeLower.includes(reqLower)) {
-          matched.push(req);
-        } else {
-          missing.push(req);
-        }
-      });
-
-      const ratio = allRequirements.length > 0 ? matched.length / allRequirements.length : 1.0;
-      const score = Math.round(40 + (ratio * 55));
-      const suggestions = missing.map(m => `Add a project demonstrating experience with ${m}.`);
-      if (suggestions.length === 0) {
-        suggestions.push("Resume matches all core skills. Consider adding specific metrics.");
-      }
-
-      analysisData = {
-        score,
-        missing_skills: missing,
-        suggested_improvements: suggestions,
-        skills: targetSkills.length > 0 ? targetSkills : ["DSA", "OOP"],
-        technologies: targetTechs.length > 0 ? targetTechs : ["React", "Node.js"]
-      };
+      return res.status(502).json({ message: 'AI Analysis service is currently unavailable or failed to process the request. Check API connection and keys.' });
     }
 
     // Save analysis to company document
